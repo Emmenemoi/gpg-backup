@@ -5,11 +5,15 @@ The way that this script works is fairly simple, it recursively scans through a 
 
 ## Requirements
 
-This script uses Python3 and assumes a Linux/UNIX system with GPG, rsync, and SSH installed. A gpg key need not be generated. The script also assumes that if you are backing up to an encrypted server that you have your public SSH key uploaded to said server.
+This script uses Python3 and assumes a Linux/UNIX system with GPG, rsync, and SSH installed as well as python-gnupg library. A gpg key need not be generated. The script also assumes that if you are backing up to an encrypted server that you have your public SSH key uploaded to said server.
 
 ## Running an Encrypted Backup:
 
 Please make sure to run `gpg-backup.py --help` to get the most up-to-date instructions on how the command-line parameters work.
+
+## Config
+
+Stores most of cached material in ~/.gpg_backup directory.
 
 ### Simple example:
 
@@ -47,4 +51,16 @@ And you can specify the temporary directory to be used for the encrypted files (
 
 ```
 $ gpg-backup.py --no-delete -t /my/temp/directory/ ./ /backups
+```
+
+You can also cache generated encrypted files to sync them using full rsync capabilities:
+
+```
+$ gpg-backup.py --cached-sync ./ /backups
+```
+
+And you can avoid filename obfuscation and keep the filetree:
+
+```
+$ gpg-backup.py --cached-sync --keep-filename ./ /backups
 ```
