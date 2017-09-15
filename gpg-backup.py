@@ -267,7 +267,7 @@ def main():
                     # The author of this software strongly discourages modifying this
                     # program to take a password as a commandline parameter.
                     passphrase = getpass('Password: ')
-                    fpass.write(passphrase)
+                    fpass.write(unicode(passphrase))
                 fpass.close()
 
             # Execute recursive call to backup the directory
