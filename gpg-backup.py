@@ -10,6 +10,7 @@ from re import compile
 from datetime import datetime
 import hashlib as hash
 import gnupg
+import io
 
 GPG_BACKUP_HOME = join(expanduser("~"), '.gpg_backup')
 BLOCKSIZE = 65536
@@ -213,9 +214,9 @@ def main():
     #if not isfile(conf_file):
     #    c = open(conf_file,'a')
     #    c.close()
-        
+    
     if isdir(arguments.source_dir):
-        url_pattern = compile(r'(.*\@)?(.+):(\d*)(\/.*)')
+        url_pattern = compile(r'(.*)?\@(.+):(\d*)(\/.*)')
         url_match = url_pattern.match(arguments.destination)
         if url_match:
             print(url_match.groups())
@@ -258,7 +259,7 @@ def main():
 
         with open(logfile,'a+') as log:
             # autogenerate pass: check gpg._make_passphrase(length, file)
-            with open(passfile,'a+', encoding='utf-8') as fpass:
+            with io.open(passfile,'a+', encoding='utf-8') as fpass:
                 fpass.seek(0)
                 passphrase = fpass.read()
                 if not passphrase:
