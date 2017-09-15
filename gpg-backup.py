@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from getpass import getpass
 from subprocess import check_output, Popen, PIPE, STDOUT
 from os import listdir, remove, getcwd, mkdir, makedirs, walk, stat
-from os.path import join, basename, dirname, relpath, isfile, isdir, abspath, expanduser, getmtime, splitext
+from os.path import join, basename, dirname, relpath, isfile, isdir, abspath, expanduser, getmtime, splitext, exists
 from socket import socket, AF_INET, SOCK_STREAM
 from re import compile
 from datetime import datetime
@@ -60,7 +60,9 @@ def files_in_tree(rootfolder, extension=".gpg"):
 def encrypt_file(src_file_path, dst_file_path, passphrase):
     # Run the GPG command to make a symmetrically encrypted version of the file at the destination
     print('ENCRYPTING FILE:\n\tSRC: {0}\n\tDST:{1}'.format(src_file_path, dst_file_path))
-    makedirs(dirname(dst_file_path), exist_ok=True)
+    dir = dirname(dst_file_path)
+    if not exists(dir):
+        makedirs(dir)
     with open(src_file_path, "rb") as stream:
         status = gpg.encrypt_file(stream, None, passphrase=passphrase, symmetric='AES256', output=dst_file_path, armor=False)
         stream.close()
