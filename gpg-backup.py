@@ -216,7 +216,7 @@ def main():
     #    c.close()
     
     if isdir(arguments.source_dir):
-        url_pattern = compile(r'(.*)?\@(.+):(\d*)(\/.*)')
+        url_pattern = compile(r'(.*)?\@(.+):(\d*)(\/.*|~\/.*)')
         url_match = url_pattern.match(arguments.destination)
         if url_match:
             print(url_match.groups())
