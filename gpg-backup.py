@@ -277,7 +277,8 @@ def main():
                                       remote_user, remote_url, remote_port, dst_dir,
                                       passphrase, delete, cached_sync, temp_dir, 
                                       filename_obfuscation):
-                log.write(('{0} {1}\n'.format(entry[1], abspath(entry[0]))))
+                if filename_obfuscation:
+                    log.write(('{0} {1}\n'.format(entry[1], abspath(entry[0]))))
             log.close()
             if cached_sync:
                 clean_cache(arguments.source_dir, temp_dir)
